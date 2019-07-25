@@ -1,50 +1,66 @@
 var entries = []
 var current = ""
 
-function itWorks(el){
-  val = el.value
-  if( !isNaN(val) || val == "." ){
+function getButton(el){
+  var val = el.value
+  if( numberCheck(val) ){
     current += val
-    document.getElementById("answer").value = current
+    updateInput(current)
   }
   else if(val == "AC"){
     entries = []
-    current = ""
-    document.getElementById("answer").value = ""
+    resetCurrent()
   }
   else if(val == "CE"){
-    current = ""
-    document.getElementById("answer").value = ""
+    resetCurrent()
   }
   else{
-    if( current == ""){
-      alert("Please enter a number before attempting to math")
-    }
-    else if( val == "="){
-      entries.push(current)
-      doMath()
-      current = ""
-      entries = []
-    }
-    else{
-      entries.push(current)
-      entries.push(val)
-      current = ""
-      document.getElementById("answer").value = ""
-    }
+    pushToEntries(val)  
   }
 }
 
 function doMath(){
   var total = Number(entries[0])
   for( var i=1; i<entries.length; i++){
-    var symbol = entries[i]
-    var nextNumber = Number(entries[i + 1])
-    if(symbol == "+"){total += nextNumber}
-    else if(symbol == "-"){total -= nextNumber}
-    else if(symbol == "*"){total *= nextNumber}
-    else if(symbol == "/"){total /= nextNumber}
+    nextNum = Number(entries[i+1])
+    if(entries[i] == "+"){total += nextNum}
+    else if(entries[i] == "-"){total -= nextNum}
+    else if(entries[i] == "*"){total *= nextNum}
+    else if(entries[i] == "/"){total /= nextNum}
     i++
   }
-  document.getElementById("answer").value = total
+  updateInput(total)
+}
+
+function resetCurrent(){
+  current = ""
+  updateInput("")
+}
+
+function updateInput(val){
+  document.getElementById("answer").value = val
+}
+
+function numberCheck(val){
+  if( !isNaN(val) || val == "." ){
+    return true
+  }
+  return false
+}
+
+function pushToEntries(val){
+  if( current == ""){
+    alert("Please enter a number before attempting to math")
+  }
+  else if( val == "="){
+    entries.push(current)
+    doMath()
+    current = ""
+    entries = []
+  }
+  else{
+    entries.push(current)
+    entries.push(val)
+    resetCurrent()
+  }
 }
