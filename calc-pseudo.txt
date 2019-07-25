@@ -1,0 +1,19 @@
+Calculator Pseudocode
+----------------------------
+
+variables needed:
+  - temp (int, to store user inputs as they are entered)
+  - total (int, to keep track of total of sums)
+  - entries (list, to keep track of user inputs and keep them in the same)
+
+basic steps:
+  - take input from user
+  - assign user input to temp
+  - on each click, check input
+    - if number, add to temp
+    - if operator (+, -, *, /), add temp to end of entries, then the operator 
+    - if AC, reset all values
+    - if ., treat as number
+    - if CE, clear current entry
+    - if =, run through entries, get answer, and display it to user
+
